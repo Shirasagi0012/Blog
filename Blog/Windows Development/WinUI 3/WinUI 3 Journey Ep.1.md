@@ -91,3 +91,13 @@ winget install Microsoft.VisualStudio.2022.Community
 ![运行](Pasted%20image%2020241127171913.png)
 
 试着点击按钮，你会发现按钮的内容发生了变化。如果你的系统启用了深色模式，应用也会原生支持深色主题，而无需额外编写代码。这也充分体现了 WinUI 3 天生就能充分利用 Windows 的众多新功能。
+
+# 在继续之前……
+
+WinUI 3仍然是一门比较新、并且不算热门的技术，但严格来讲它并不是什么新东西，它与UWP的UI编写之间的差异非常小，相当多的东西都是互通的，因此，网络上关于WinUI 3的教程与资料相当匮乏。不过值得庆幸的是，微软为它准备了足够充分的文档和好用的工具。以下是一些建议与Tips：
+
+- 如果遇见了陌生的API，可以在IDE中按下F1键自动跳转至对应的文档
+
+![[Pasted image 20241130204442.png]]
+- 在Microsoft Store里安装 WinUI 3 Gallery，体验所有WinUI 3的控件和用法示例。
+- Windows应用开发文档 https://learn.microsoft.com/zh-cn/windows/apps/develop/
