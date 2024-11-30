@@ -1,6 +1,7 @@
 # WinUI 3 | Ep1. 初识WinUI 3 & 环境配置
 
-![WinUI 3](.\Pasted%20image%2020241127153149.png)
+![WinUI 3](Pasted%20image%2020241127153149.png)
+
 WinUI 3是微软为现代 Windows 应用开发而制作的最新的UI框架，包含在Windows App SDK中，也是Windows系统的组成部分。它来源于坟头草已经三尺高的UWP平台的UI控件库，WinUI 2，带有一套与Windows 11设计风格完全一致的控件，也是微软 Fluent Design System 设计语言的官方实现。
 
 ## 什么？又一个UI框架？

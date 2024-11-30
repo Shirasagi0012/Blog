@@ -31,7 +31,9 @@ namespace Tutorial
 
 App类会为我们完成整个应用的初始化，包括它需要的各种资源的准备，初始化完成后会在启动时执行`OnLaunched`方法，创建并展示一个窗口。
 
-和控制台/ASP.NET Core C#项目不同，WinUI 3项目没有`Program.cs`和手写的`Main`方法。`App.xaml.cs`里面的`App`类是整个应用的起始点。当然，`Main`方法依旧存在，但是是由项目构建系统自动为我们生成的，它会为我们完成构建一个App实例，并且帮助我们在关闭的时候销毁它。
+和控制台/ASP.NET Core C#项目不同，WinUI 3项目没有`Program.cs`和手写的`Main`方法。`App.xaml.cs`里面的`App`类是整个应用的起始点。
+
+> 当然，`Main`方法依旧存在，但是是由项目构建系统自动为我们生成的。
 
 ## 主窗口
 
@@ -57,50 +59,81 @@ WinUI 3和它的前辈UWP，WPF一样，使用了XAML作为编写界面的语法
 </Window>
 ```
 
-> XAML是一种用来描述用户界面的语法。在语法上，它是XML的扩展，拥有强大的表达能力。
-> 
-> XAML在用途上类似于编写网页使用的HTML，它取代了传统的使用代码构造界面，而使用一种更具有结构化的语言——XAML——来描述界面，并且根据XAML生成对应的代码，实现代码和界面的分离，让设计师能够不用去编写代码，而只需要通过XAML来设计界面。
+## XAML
 
-好像有很多复杂的东西。不过我们先关注最后面的`StackPanel`和`Button`。
+> XAML是一种用来描述用户界面的语法。它取代了传统的使用代码构造界面，而使用声明式的语法来描述界面，实现代码逻辑和界面声明的分离，让设计师能够不编写代码，只需要通过XAML来设计界面。
 
-### `<Button ... />`
+XAML使用了与XML相似的语法。如果你已经熟悉了XML，那么下面一部分对你而言应该是基础知识：
 
-我们的窗口中的那个`Click Me`按钮正是由`Button`标签描述的。一个标签有标签类型、多个属性和内容，一个标签需要一对开始和结束，比如`Button`中的`<Button ...> ... </Button>`就是一对开始和结束标签。如果标签内容为空，你也可以写成自闭合的形式，就像`<Button />`
+### 对象元素
+
+在C#之中，一切皆对象。XAML中可以非常方便的声明一个对象元素：
+
+```xml
+<Button>Hello!</Button>
+```
+
+简单的一行，我们就声明了一个Button对象，它大致相当于下面这段C#代码
+
+```csharp
+Button button1 = new Button()
+{
+    Content = "Hello!"
+};
+```
+
+XAML中用`< >`包裹起来的被称作一个标签，和HTML类似。标签有头也有尾，结束标签在最开头有一个`/`。
+
+每一个XAML元素都对应着C#中的一个类。
 
 #### 内容
 
-这个`Button`的内容为"Click Me"，它对应着窗口中按钮显示的内容
-![[Pasted image 20241127180331.png]]
-所有拥有内容的控件都继承自`ContentControl`。
+起始标签和结束标签中间夹着的被称为内容(Content)，在这里它是一段文字"Hello!"，但你也可以使用另一个标签形成嵌套：
+
+```xml
+<Button>
+    <Image Source="/Assets/WinUI3.png" />
+</Button>
+```
+
+自闭合标签：如果一个标签内容部分为空，可以省略掉结束标签，而在起始标签的结尾处加上一个`/`表示这个标签是自闭合的，eg.`<Button />`
+
+这段XAML相当于：
+
+```csharp
+Button button1 = new Button()
+{
+    Content = new Image()
+    {
+        Source = "/Assets/WinUI3.png",
+    }
+};
+```
 
 #### 属性
 
-除了内容之外，这个`Button`还具有两个属性“x:Name”和"Click"。属性，
+上面的例子中，`<Image Source="/Assets/WinUI3.png" />`的`Source="..."`就是设置一个属性的值的语法。对于一个元素，它对应的类的可访问属性都能通过这种语法赋值。
 
-##### `x:Name`
+内容也是一种属性，叫`Content`，所以以下两种写法是等价的：
 
-WinUI 3采用了代码与界面相分离的模式，界面在XAML中，而代码则在对应的后台代码（code-behind），即`*.xaml.cs`里。如果你希望在后台代码里访问一个控件，需要给这个控件取一个在C#代码中的名字，便是由`x:Name`完成的。它为你在MainWindow的分部类里生成了一个对应名字的private字段，以便你在代码中去访问它。你可以通过设置` x:FieldModifier`属性来让它生成public的字段。
+```xml
+<Button>Hello!</Button>
+<Button Content="Hello!" /> 
+```
 
-打开后台代码， 在`myButton_Click`方法中`myButton.Content = "Clicked";`就使用了`x:Name`中的名字来修改`myButton`的内容。
+当然，这样写的话，你就不能设置内容的值为另一个标签了。前面`Button`嵌套一个`Image`的例子就不能改写成这样。
 
-##### `Click`
+如果你希望使用XAML元素设置一个属性的值也是可行的。这种方式虽然更繁琐，但是能使用另一个XAML元素作为它的内容。这两种写法是等价的，可见，使用属性语法会让代码更简洁
 
-设置点击按钮时由哪个事件处理函数来处理。在这里每次点击按钮都会触发`myButton_Click`事件，修改`myButton`的内容为Clicked。
+```xml
+<Button>
+    <Button.FontSize>
+        24
+    </Button.FontSize>
+    Hello!
+</Button>
 
-##### `Content`
+<Button FontSize="24" Content="Hello!" />
+```
 
-我们不仅可以在开始和结束标签中间书写内容，实际上内容只是一个叫`Content`的属性，这就是为什么我们在点击事件里修改它的内容时使用的是`Content`。
 
-![[Pasted image 20241127182018.png]]
-这二者是等价的。并且你不能同时用这两种方式设置内容，因为一个属性只能被设置一次。
-
-### `<StackPanel ... />`
-
-`StackPanel`是一种控件的布局。布局可以用来描述控件如何被排列在界面上。`StackPanel`是一种将它里面的元素全部垂直或水平排列的布局，你可以试试多添加几个按钮：
-![[Pasted image 20241127182815.png]]
-它有一些常用属性：
-
-| 属性                  | 作用          | 值                         |
-| ------------------- | ----------- | ------------------------- |
-| Orientation         | 水平或垂直排布控件   | Vertical（默认）, Horizontal  |
-| HorizontalAlignment | 相对于父元素的水平位置 | Center,Left,Right,Stretch |
