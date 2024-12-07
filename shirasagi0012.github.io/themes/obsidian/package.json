@@ -1,0 +1,46 @@
+{
+  "name": "hexo-theme-obsidian",
+  "version": "1.0.0",
+  "description": " A noble dark obsidian style Hexo theme, it's responsive, hight quality, fancy, high class.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TriDiamond/hexo-theme-obsidian.git"
+  },
+  "keywords": [
+    "hexo-theme",
+    "hexo",
+    "obsidian",
+    "dark-theme"
+  ],
+  "author": "TriDiamond",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TriDiamond/hexo-theme-obsidian/issues"
+  },
+  "homepage": "https://github.com/TriDiamond/hexo-theme-obsidian#readme",
+  "private": true,
+  "devDependencies": {
+    "hexo-html-truncate": "^1.0.0",
+    "hexo-wordcount": "^6.0.1"
+  },
+  "dependencies": {
+    "boolbase": "^1.0.0",
+    "css-select": "^5.1.0",
+    "lodash": "^4.17.19",
+    "lodash.assignin": "^4.2.0",
+    "lodash.bind": "^4.2.1",
+    "lodash.defaults": "^4.2.0",
+    "lodash.filter": "^4.6.0",
+    "lodash.flatten": "^4.4.0",
+    "lodash.foreach": "^4.5.0",
+    "lodash.map": "^4.6.0",
+    "lodash.merge": "^4.6.2",
+    "lodash.pick": "^3.1.0",
+    "lodash.reduce": "^4.6.0",
+    "lodash.reject": "^4.6.0",
+    "lodash.some": "^4.6.0"
+  }
+}
